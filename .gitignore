@@ -1,3 +1,7 @@
+# ignore the original zip files
+*.zip
+data-raw-orig/
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -45,3 +49,4 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+.Rproj.user
