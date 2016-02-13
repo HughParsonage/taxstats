@@ -4,5 +4,6 @@ Version: 0.0.0.9000
 Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
 Description: What the package does (one paragraph).
 Depends: R (>= 3.2.3)
-License: What license is it under?
+Imports: data.table
+License: Creative Commons Attribution 3.0 Australia
 LazyData: true
