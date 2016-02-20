@@ -1,0 +1,33 @@
+#' A function for simple projections of sample files
+#' 
+#' @param sample_file A sample file, most likely the 2012-13 sample file. It is intended that it will be the most recent.
+#' @param h An integer. How many years should the sample file be projected?
+#' @param fy.year.of.sample.file The financial year of \code{sample_file}.
+#' @return A sample file of the same number of rows as \code{sample_file} with inflated values (including WEIGHT).
+
+
+project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = "2012-13"){
+  stopifnot(h >= 0L, data.table::is.data.table(sample_file))
+  sample_file %<>% dplyr::mutate(WEIGHT = WEIGHT)
+  if (h == 0){
+    return(sample_file)
+  } else {
+    current.fy <- fy.year.of.sample.file
+    to.fy <- grattan::yr2fy(grattan::fy2yr(current.fy) + h)
+    wage.inflator <- grattan::wage_inflator(1, from_fy = current.fy, to_fy = to.fy)
+    lf.inflator <- grattan::lf_inflator_fy(from_fy = fy.year.of.sample.file,
+                                           to_fy = to.fy)
+    
+    sample_file %>%
+      dplyr::mutate(
+        new_Sw_amt = wage.inflator * Sw_amt,
+        new_Taxable_Income = Taxable_Income + (new_Sw_amt - Sw_amt),
+        WEIGHT = WEIGHT * lf.inflator
+      ) %>%
+      dplyr::mutate(
+        Sw_amt = new_Sw_amt,
+        Taxable_Income = new_Taxable_Income
+      ) %>%
+      dplyr::select(-starts_with("new"))
+  } 
+}

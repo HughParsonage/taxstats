@@ -1,1 +1,6 @@
 exportPattern("^[^\\.]")
+import(data.table)
+importFrom(magrittr,"%>%")
+importFrom(magrittr,"%$%")
+importFrom(magrittr,"%<>%")
+importFrom(Rcpp, evalCpp)
