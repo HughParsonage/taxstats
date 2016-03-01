@@ -7,6 +7,7 @@
 
 
 project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = "2012-13"){
+  
   stopifnot(h >= 0L, data.table::is.data.table(sample_file))
   sample_file %<>% dplyr::mutate(WEIGHT = WEIGHT)
   if (h == 0){
@@ -22,10 +23,14 @@ project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = 
       dplyr::mutate(
         new_Sw_amt = wage.inflator * Sw_amt,
         new_Taxable_Income = Taxable_Income + (new_Sw_amt - Sw_amt),
+        new_Rptbl_Empr_spr_cont_amt = Rptbl_Empr_spr_cont_amt * wage.inflator,
+        new_Non_emp_spr_amt = Non_emp_spr_amt * wage.inflator,
         WEIGHT = WEIGHT * lf.inflator
       ) %>%
       dplyr::mutate(
         Sw_amt = new_Sw_amt,
+        Rptbl_Empr_spr_cont_amt = new_Rptbl_Empr_spr_cont_amt,
+        Non_emp_spr_amt = new_Non_emp_spr_amt,
         Taxable_Income = new_Taxable_Income
       ) %>%
       dplyr::select(-starts_with("new"))
