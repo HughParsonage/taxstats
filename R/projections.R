@@ -20,7 +20,11 @@ project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = 
     cpi.inflator <- grattan::cpi_inflator(1, from_fy = current.fy, to_fy = to.fy)
     
     col.names <- names(sample_file)
-    wagey.cols <- c("Sw_amt", "Rptbl_Empr_spr_cont_amt", "Non_emp_spr_amt")
+    wagey.cols <- c("Sw_amt", 
+                    "Alow_ben_amt",
+                    "ETP_txbl_amt",
+                    "Rptbl_Empr_spr_cont_amt", 
+                    "Non_emp_spr_amt")
     lfy.cols <- c("WEIGHT")
     cpiy.cols <- c(grep("WRE", col.names, value = TRUE),
                    "Cost_tax_affairs_amt",
