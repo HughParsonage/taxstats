@@ -2,13 +2,21 @@
 #' 
 #' @param sample_file A sample file, most likely the 2012-13 sample file. It is intended that to be the most recent.
 #' @param h An integer. How many years should the sample file be projected?
+#' @param to_fy A string like "1066-67" representing the financial year for which forecasts of the sample file are desired. 
 #' @param fy.year.of.sample.file The financial year of \code{sample_file}.
 #' @return A sample file of the same number of rows as \code{sample_file} with inflated values (including WEIGHT).
+#' @import 'data.table'
+#' @export
 
+project_to <- function(sample_file, to_fy, fy.year.of.sample.file = "2012-13", ...){
+  h <- as.integer(grattan::fy2yr(to_fy) - grattan::fy2yr(fy.year.of.sample.file))
+  project(sample_file = sample_file, h = h, fy.year.of.sample.file = fy.year.of.sample.file, ...)
+}
 
-project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = "2012-13"){
+project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEIGHT = 50L){
   
   stopifnot(is.integer(h), h >= 0L, data.table::is.data.table(sample_file))
+  
   sample_file %<>% dplyr::mutate(WEIGHT = WEIGHT)
   if (h == 0){
     return(sample_file)
@@ -20,18 +28,45 @@ project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = 
     cpi.inflator <- grattan::cpi_inflator(1, from_fy = current.fy, to_fy = to.fy)
     
     col.names <- names(sample_file)
+    
     wagey.cols <- c("Sw_amt", 
                     "Alow_ben_amt",
                     "ETP_txbl_amt",
                     "Rptbl_Empr_spr_cont_amt", 
                     "Non_emp_spr_amt")
+    
     lfy.cols <- c("WEIGHT")
+    
     cpiy.cols <- c(grep("WRE", col.names, value = TRUE),
                    "Cost_tax_affairs_amt",
                    "Other_Ded_amt")
     
+    derived.cols <- c("Net_rent_amt",
+                      "Net_PP_BI_amt",
+                      "Net_NPP_BI_amt",
+                      "Tot_inc_amt",
+                      "Tot_ded_amt",
+                      "Taxable_Income")
+    
+    Not.Inflated <- c("Ind", 
+                      "Gender",
+                      "age_range", 
+                      "Occ_code", 
+                      "Partner_status", 
+                      "Region", 
+                      "Lodgment_method", 
+                      "PHI_Ind")
+    
+    SetDiff <- function(...) Reduce(setdiff, list(...), right = FALSE)
+    
+    generic.cols <- SetDiff(col.names, 
+                            wagey.cols, lfy.cols, cpiy.cols, derived.cols, Not.Inflated)
+    
+    generic.inflators <- 
+      generic_inflator(sample_file, vars = generic.cols, h = h, fy.year.of.sample.file = fy.year.of.sample.file)
+    
     ## Inflate:
-    if (FALSE){  # we may use this option later
+    if (TRUE){  # we may use this option later
       for (j in which(col.names %in% wagey.cols))
         data.table::set(sample_file, j = j, value = wage.inflator * sample_file[[j]])
       
@@ -40,7 +75,56 @@ project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = 
       
       for (j in which(col.names %in% cpiy.cols))
         data.table::set(sample_file, j = j, value = cpi.inflator * sample_file[[j]])
-    }
+      
+      for (j in which(col.names %in% generic.cols)){
+        nom <- col.names[j]
+        data.table::set(sample_file, 
+                        j = j, 
+                        value = generic.inflators[variable == nom]$inflator * sample_file[[j]])
+      }
+      
+      # Cosmetic: For line-breaking 
+      .add <- function(...) Reduce("+", list(...))
+      
+      sample_file %>%
+        dplyr::mutate(
+          Net_rent_amt = Gross_rent_amt - Other_rent_ded_amt - Rent_int_ded_amt - Rent_cap_wks_amt,
+          Net_PP_BI_amt = Total_PP_BI_amt - Total_PP_BE_amt,
+          Net_NPP_BI_amt = Total_NPP_BI_amt - Total_NPP_BE_amt,
+          Tot_inc_amt = .add(Sw_amt,
+                             Alow_ben_amt,
+                             ETP_txbl_amt,
+                             Grs_int_amt,
+                             Aust_govt_pnsn_allw_amt,
+                             Unfranked_Div_amt,
+                             Frk_Div_amt,
+                             Dividends_franking_cr_amt,
+                             Net_rent_amt,
+                             Net_farm_management_amt,
+                             Net_PP_BI_amt,
+                             Net_NPP_BI_amt,
+                             Net_CG_amt,  ## We cannot express this cleanly in terms of Tot_CG
+                             Net_PT_PP_dsn,
+                             Net_PT_NPP_dsn,
+                             Taxed_othr_pnsn_amt,
+                             Untaxed_othr_pnsn_amt,
+                             Other_foreign_inc_amt,
+                             Other_inc_amt),
+          Tot_ded_amt = .add(WRE_car_amt,
+                             WRE_trvl_amt,
+                             WRE_uniform_amt,
+                             WRE_self_amt,
+                             WRE_other_amt,
+                             Div_Ded_amt,
+                             Intrst_Ded_amt,
+                             Gift_amt,
+                             Non_emp_spr_amt,
+                             Cost_tax_affairs_amt,
+                             Other_Ded_amt),
+          Taxable_Income = Tot_inc_amt - Tot_ded_amt - PP_loss_claimed - NPP_loss_claimed
+          ) 
+      
+    } else {
     
     sample_file %>%
       dplyr::mutate(
@@ -60,5 +144,6 @@ project <- function(sample_file, WEIGHT = 50L, h = 0L, fy.year.of.sample.file = 
         Spouse_adjusted_taxable_inc = new_Spouse_adjusted_taxable_inc
       ) %>%
       dplyr::select(-starts_with("new"))
+    }
   } 
 }
