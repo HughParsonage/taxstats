@@ -5,7 +5,9 @@
 #' @param to_fy A string like "1066-67" representing the financial year for which forecasts of the sample file are desired. 
 #' @param fy.year.of.sample.file The financial year of \code{sample_file}.
 #' @return A sample file of the same number of rows as \code{sample_file} with inflated values (including WEIGHT).
-#' @import 'data.table'
+#' @import dplyr
+#' @import data.table
+#' @import magrittr
 #' @export
 
 project_to <- function(sample_file, to_fy, fy.year.of.sample.file = "2012-13", ...){
@@ -26,6 +28,7 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
     wage.inflator <- grattan::wage_inflator(1, from_fy = current.fy, to_fy = to.fy)
     lf.inflator <- grattan::lf_inflator_fy(from_fy = current.fy, to_fy = to.fy)
     cpi.inflator <- grattan::cpi_inflator(1, from_fy = current.fy, to_fy = to.fy)
+    CGT.inflator <- grattan::CGT_inflator(1, from_fy = current.fy, to_fy = to.fy)
     
     col.names <- names(sample_file)
     
@@ -47,6 +50,8 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
                       "Tot_inc_amt",
                       "Tot_ded_amt",
                       "Taxable_Income")
+    
+    CGTy.cols <- c("Net_CG_amt", "Tot_CY_CG_amt")
     
     Not.Inflated <- c("Ind", 
                       "Gender",
@@ -76,6 +81,9 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
       for (j in which(col.names %in% cpiy.cols))
         data.table::set(sample_file, j = j, value = cpi.inflator * sample_file[[j]])
       
+      for (j in which(col.names %in% CGTy.cols))
+        data.table::set(sample_file, j = j, value = CGT.inflator * sample_file[[j]])
+      
       for (j in which(col.names %in% generic.cols)){
         nom <- col.names[j]
         data.table::set(sample_file, 
@@ -101,7 +109,7 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
                              Dividends_franking_cr_amt,
                              Net_rent_amt,
                              Net_farm_management_amt,
-                             Net_PP_BI_amt,
+                             Net_PP_BI_amt,  ## Need to check exactly how this maps.
                              Net_NPP_BI_amt,
                              Net_CG_amt,  ## We cannot express this cleanly in terms of Tot_CG
                              Net_PT_PP_dsn,

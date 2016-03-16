@@ -7,12 +7,9 @@
 #' @param nonzero Should the forecast be taken on all values, or just nonzero values?
 #' @param estimator What forecast element should be used: the point estimate (\code{"mean"}), or the \code{upper} or \code{lower} endpoint of a prediction interval?
 #' @param pred_interval If \code{estimator} is \code{upper} or \code{lower}, what prediction interval are these the end points of?
-#' @importFrom 'magrittr' '%>%'
-#' @importFrom 'magrittr' '%<>%'
-#' @importFrom 'magrittr' '%$%'
-#' @import 'data.table'
-#' @import 'dplyr'
-#' @import 'magrittr'
+#' @importFrom magrittr %>%
+#' @importFrom magrittr %<>%
+#' @importFrom magrittr %$%
 #' @export
 
 ## For each variable we want an arima/ets model 
