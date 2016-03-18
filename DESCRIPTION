@@ -1,7 +1,7 @@
 Package: taxstats
 Title: What the Package Does (one line, title case)
 Date: 2016-03-01
-Version: 0.0.0.9000
+Version: 0.0.1.1314
 Authors@R: person("Hugh", "Parsonage", email = "hugh.parsonage+taxstatspackage@grattan.edu.au", role = c("aut", "cre"))
 Description: Supplies Australian Taxation Office (ATO) data. Provides a project() function for convenience.
 Depends:
