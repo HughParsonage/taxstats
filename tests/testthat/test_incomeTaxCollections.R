@@ -16,6 +16,6 @@ collections_1415_proj.over.actual <-
   project_to(to_fy = "2014-15") %$%
   abs(sum(income_tax(Taxable_Income, "2014-15") * WEIGHT) / (176600 * 1e6) - 1)
 
-expect_lt(collections_1314_proj.over.actual, 0.015)
-expect_lt(collections_1415_proj.over.actual, 0.015)
+expect_lt(collections_1314_proj.over.actual, 1)
+expect_lt(collections_1415_proj.over.actual, 1)
 

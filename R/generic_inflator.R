@@ -72,17 +72,21 @@ generic_inflator <- function(.sample_file, vars, h, fy.year.of.sample.file = "20
     dplyr::last(x) / dplyr::first(x)
   }
   
+  MeanNumeric <- function(x){
+    sum(as.numeric(x)) / length(x)
+  }
+  
   if (!nonzero){
     mean_of_each_var <- 
       sample_files_all %>%
       dplyr::select_(.dots = c("fy.year", vars)) %>%
       select_which_(is.numeric, "fy.year") %>%
       dplyr::group_by(fy.year) %>%  
-      dplyr::summarise_each(dplyr::funs(mean)) 
+      dplyr::summarise_each(dplyr::funs(MeanNumeric)) 
   } else {
     # Forecast only on the mean of nonzero values
     mean_of_nonzero <- function(x){
-      mean(x[x > 0])
+      MeanNumeric(x[x > 0])
     }
     
     is.nonnegative <- function(vec){
