@@ -14,7 +14,7 @@ project(sample_file, h = 0L, fy.year.of.sample.file = "2012-13",
 
 \item{fy.year.of.sample.file}{The financial year of \code{sample_file}.}
 
-\item{WEIGHT}{The sample weight for the sample file. (So a 2\%\ file has \code{WEIGHT} = 50.)}
+\item{WEIGHT}{The sample weight for the sample file. (So a 2\% file has \code{WEIGHT} = 50.)}
 }
 \value{
 A sample file of the same number of rows as \code{sample_file} with inflated values (including WEIGHT).

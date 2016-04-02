@@ -3,7 +3,7 @@
 #' @param sample_file A sample file, most likely the 2012-13 sample file. It is intended that to be the most recent.
 #' @param h An integer. How many years should the sample file be projected?
 #' @param fy.year.of.sample.file The financial year of \code{sample_file}.
-#' @param WEIGHT The sample weight for the sample file. (So a 2\%\ file has \code{WEIGHT} = 50.)
+#' @param WEIGHT The sample weight for the sample file. (So a 2\% file has \code{WEIGHT} = 50.)
 #' @return A sample file of the same number of rows as \code{sample_file} with inflated values (including WEIGHT).
 #' @import data.table
 #' @export
@@ -32,7 +32,7 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
     
     lfy.cols <- c("WEIGHT")
     
-    cpiy.cols <- c(grep("WRE", col.names, value = TRUE),
+    cpiy.cols <- c(grep("WRE", col.names, value = TRUE), # work-related expenses
                    "Cost_tax_affairs_amt",
                    "Other_Ded_amt")
     
@@ -121,7 +121,7 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
                              Non_emp_spr_amt,
                              Cost_tax_affairs_amt,
                              Other_Ded_amt),
-          Taxable_Income = Tot_inc_amt - Tot_ded_amt - PP_loss_claimed - NPP_loss_claimed
+          Taxable_Income = pmaxC(Tot_inc_amt - Tot_ded_amt - PP_loss_claimed - NPP_loss_claimed, 0)
           ) 
       
     } else {
