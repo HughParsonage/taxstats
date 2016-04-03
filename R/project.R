@@ -4,11 +4,12 @@
 #' @param h An integer. How many years should the sample file be projected?
 #' @param fy.year.of.sample.file The financial year of \code{sample_file}.
 #' @param WEIGHT The sample weight for the sample file. (So a 2\% file has \code{WEIGHT} = 50.)
+#' @param excl_vars A character vector of column names in \code{sample_file} that should not be inflated. Columns not present in the 2013-14 sample file are not inflated and nor are the columns \code{Ind}, \code{Gender}, \code{age_range}, \code{Occ_code}, \code{Partner_status}, \code{Region}, \code{Lodgment_method}, and \code{PHI_Ind}.
 #' @return A sample file of the same number of rows as \code{sample_file} with inflated values (including WEIGHT).
 #' @import data.table
 #' @export
 
-project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEIGHT = 50L){
+project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEIGHT = 50L, excl_vars){
   stopifnot(is.integer(h), h >= 0L, data.table::is.data.table(sample_file))
   
   sample_file %<>% dplyr::mutate(WEIGHT = WEIGHT)
@@ -45,6 +46,7 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
     
     CGTy.cols <- c("Net_CG_amt", "Tot_CY_CG_amt")
     
+    alien.cols <- col.names[!col.names %in% names(sample_file_1314)]
     Not.Inflated <- c("Ind", 
                       "Gender",
                       "age_range", 
@@ -52,7 +54,12 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
                       "Partner_status", 
                       "Region", 
                       "Lodgment_method", 
-                      "PHI_Ind")
+                      "PHI_Ind", 
+                      alien.cols)
+    
+    if(!missing(excl_vars)){
+      Not.Inflated <- c(Not.Inflated, excl_vars)
+    }
     
     SetDiff <- function(...) Reduce(setdiff, list(...), right = FALSE)
     
