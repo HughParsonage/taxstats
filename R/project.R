@@ -23,7 +23,7 @@ project <- function(sample_file, h = 0L, fy.year.of.sample.file = "2012-13", WEI
     cpi.inflator <- grattan::cpi_inflator(1, from_fy = current.fy, to_fy = to.fy)
     CGT.inflator <- grattan::CGT_inflator(1, from_fy = current.fy, to_fy = to.fy)
     
-    col.names <- names(sample_file)
+    col.names <- names(sample_file)[names(sample_file) %in% names(sample_file_1314)]
     
     wagey.cols <- c("Sw_amt", 
                     "Alow_ben_amt",
