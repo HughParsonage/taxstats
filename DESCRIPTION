@@ -9,6 +9,7 @@ Depends:
 Imports:
     data.table,
     dplyr,
+    grattan,
     rsdmx,
     magrittr,
     Rcpp (>= 0.12.3)
