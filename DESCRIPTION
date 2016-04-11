@@ -1,18 +1,13 @@
 Package: taxstats
-Title: What the Package Does (one line, title case)
+Title: Supply ATO data for convenience.
 Date: 2016-03-01
-Version: 0.0.1.1314
+Version: 0.0.2.1314
 Authors@R: person("Hugh", "Parsonage", email = "hugh.parsonage+taxstatspackage@grattan.edu.au", role = c("aut", "cre"))
-Description: Supplies Australian Taxation Office (ATO) data. Provides a project() function for convenience.
+Description: Supplies Australian Taxation Office (ATO) data.
 Depends:
     R (>= 3.2.3)
 Imports:
-    data.table,
-    dplyr,
-    grattan,
-    rsdmx,
-    magrittr,
-    Rcpp (>= 0.12.3)
+    data.table
 License: Creative Commons Attribution 3.0 Australia
 LazyData: true
 Suggests:
