@@ -10,6 +10,4 @@ Imports:
     data.table
 License: Creative Commons Attribution 3.0 Australia
 LazyData: true
-Suggests:
-    testthat
 RoxygenNote: 5.0.1
