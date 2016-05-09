@@ -51,7 +51,11 @@ age_range_decoder <-
 9	25 to 29
 10	20 to 24
 11	under 20
-")
+") %>%
+  arrange(desc(age_range)) %>%
+  mutate(age_range_description = factor(age_range_description, 
+                                        levels = unique(.$age_range_description), 
+                                        ordered = TRUE))
 
 devtools::use_data(age_range_decoder, overwrite = TRUE)
 
