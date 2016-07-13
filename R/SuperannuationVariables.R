@@ -18,5 +18,5 @@ mutate_super_vars <- function(.sample.file){
   }
   
   # Pre-tax contributions
-  .sample.file[ , "pre_tax_contributions" := rowSums(.SD), .SDcols = c("MCS_Emplr_Contr", "Rptbl_Empr_spr_cont_amt")]
+  .sample.file[ , "pre_tax_contributions" := rowSums(.SD), .SDcols = c("MCS_Emplr_Contr", "Non_emp_spr_amt")]
 }
