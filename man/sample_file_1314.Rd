@@ -8,7 +8,7 @@
 \describe{
 \item{Ind}{Unique identifier.}
 \item{Gender}{Gender (sex). Your sex question. 0 = Male. 1 = Female.}
-\item{Age_range}{Age in five year ranges. Based on Date of Birth label, this is their age as on 30 June 2014.}
+\item{age_range}{Age in five year ranges. Based on Date of Birth label, this is their age as on 30 June 2014.}
 \item{Occ_code}{Salary/wage occupation code. Income item 1, label X, first digit}
 \item{Partner_status}{Has reported a spouse date of birth or hasn't. Derived from Spouse details - married or de facto, Spouse date of birth, label K}
 \item{Region}{Geographic region based on the Australian Bureau of Statistics Statical Area 4 (SA4) definition using a correspondence with residential postcode.. Derived from residential postcode}
