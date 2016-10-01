@@ -14,7 +14,7 @@
 \item{Region}{Geographic region based on the Australian Bureau of Statistics Statical Area 4 (SA4) definition using a correspondence with residential postcode.. Derived from residential postcode}
 \item{Lodgment_method}{Lodgment method. Via tax agent,  or self prepared return.}
 \item{PHI_Ind}{Private Health Insurance indicator. Derived indicator - if an individual completed some private health insurance details at labels B in the top of page 5.}
-\item{\strong{INCOME}}{}
+%\item{\strong{INCOME}}{}
 \item{Sw_amt}{Salary/wage amount. Income item 1, sum of labels C, D, E, F, G}
 \item{Alow_ben_amt}{Allowances amount. Income item 2, label K}
 \item{ETP_txbl_amt}{Employment termination payments taxable component. Income item 4, label I}
@@ -44,7 +44,7 @@
 \item{Other_foreign_inc_amt}{Other net foreign source income. Income item 20, label M}
 \item{Other_inc_amt}{Other income not separately listed. Eg total income less listed income. Total income or loss (from page 3) less all income listed above}
 \item{Tot_inc_amt}{Total income. Total income or loss (from page 3)}
-\item{\strong{DEDUCTIONS}}{}
+% \item{\strong{DEDUCTIONS}}{}
 \item{WRE_car_amt}{WRE car expenses. Deduction item D1, label A}
 \item{WRE_trvl_amt}{WRE travel expenses. Deduction item D2, label B}
 \item{WRE_uniform_amt}{WRE uniform expenses. Deduction item D3, label C}
@@ -57,10 +57,10 @@
 \item{Cost_tax_affairs_amt}{Cost of managing tax affairs. Deduction item D10, label M}
 \item{Other_Ded_amt}{Other deductions not separately listed. Eg total deductions less listed deductions. Total deductions - second box below D10 label M on page 3 less deductions listed above}
 \item{Tot_ded_amt}{Total deductions. Total deductions - second box below D10 label M on page 3 less deductions listed above}
-\item{\strong{LOSSES}}{}
+% \item{\strong{LOSSES}}{}
 \item{PP_loss_claimed}{Primary production prior year losses claimed this year. Losses item L1, label F}
 \item{NPP_loss_claimed}{Non-primary production prior year losses claimed this year. Losses item L1, label Z}
-\item{\strong{OTHER}}{}
+% \item{\strong{OTHER}}{}
 \item{Rep_frng_ben_amt}{Reportable fringe benefits. Income test item IT1, label W}
 \item{Med_Exp_TO_amt}{Medical expenses tax offset. Tax offset item T6}
 \item{Asbl_forgn_source_incm_amt}{Assessable foreign source income. Income item 20 Label E}
