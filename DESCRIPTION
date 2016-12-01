@@ -8,6 +8,6 @@ Depends:
     R (>= 3.2.3)
 Imports:
     data.table
-License: Creative Commons Attribution 3.0 Australia
+License: CC3
 LazyData: true
 RoxygenNote: 5.0.1

@@ -1,10 +1,11 @@
 library(readxl)
 library(openxlsx)
 library(dplyr)
+library(data.table)
 library(readr)
 library(tidyr)
 
-stopifnot(file.exists("data-raw/2013-14/Documentation/Benchmarking for sample file 2013-14.xlsx"))
+stopifnot(file.exists("./data-raw/2013-14/Documentation/Benchmarking for sample file 2013-14.xlsx"))
 
 # 2013-14
 # col_names_201314 <- 
@@ -51,9 +52,21 @@ benchmarking_201314_orig <-
                   "count_available_for_sample", "sum_available_for_selection", 
                   "count_sample", "sum_sample", 
                   "count_sample_over_actual", "sum_sample_over_actual")) %>%
-  mutate_each(funs(cleanse_n.a.), -data_item, -description)
+  mutate_each(funs(cleanse_n.a.), -data_item, -description) %>%
+  filter(complete.cases(.)) %>%
+  as.data.table
 
-devtools::use_data(benchmarking_201314_orig)
+grepNonASCII <- function(x) {
+  asc <- iconv(x, "latin1", "ASCII")
+  ind <- is.na(asc) | asc != x
+  which(ind)
+}
+
+for (j in which(sapply(benchmarking_201314_orig, is.character))){
+  set(benchmarking_201314_orig, j = j, value = iconv(benchmarking_201314_orig[[j]], from = "", to = "ASCII"))
+}
+
+devtools::use_data(benchmarking_201314_orig, overwrite = TRUE)
 
 
 

@@ -39,6 +39,7 @@ individuals_table1_201314 <-
   mutate(fy_year = yr2fy(as.numeric(gsub("^([12][0-9]{3})[^0-9](([0-9]{2})|(2000))$", "\\1", fy_year)) + 1)) %>%
   # the .absent columns don't add much
   select(-contains("absent")) %>%
-  select(Superheading, Selected_items = `Selected items`, fy_year, Count, Sum)
+  select(Superheading, Selected_items = `Selected items`, fy_year, Count, Sum) %>%
+  .[ , (1:3) := lapply(.SD, function(x) iconv(x, to = "ASCII")), .SDcols = 1:3] 
 
-devtools::use_data(individuals_table1_201314)
+devtools::use_data(individuals_table1_201314, overwrite = TRUE)
