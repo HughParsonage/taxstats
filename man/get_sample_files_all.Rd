@@ -4,7 +4,7 @@
 \alias{get_sample_files_all}
 \title{Get the object containing all sample files}
 \usage{
-get_sample_files_all()
+get_sample_files_all(assign.env = parent.frame(2))
 }
 \value{
 A promise to \code{sample_files_all}. See \code{?sample_files}.
