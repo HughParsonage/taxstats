@@ -6,6 +6,9 @@
 \usage{
 get_sample_files_all(assign.env = parent.frame(2))
 }
+\arguments{
+\item{assign.env}{The environment in which to assign \code{sample_files_all}.}
+}
 \value{
 A promise to \code{sample_files_all}. See \code{?sample_files}.
 }

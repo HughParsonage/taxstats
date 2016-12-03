@@ -16,5 +16,9 @@ age_range_decoder
 Makes the idiosyncratic \code{age_range} in the sample files suitable for analysis. Join the sample file with this table 
 (after \code{data.table::setkeyv(sample_file_1314, "age_range")}).
 }
+\examples{
+merge(sample_file_1314, age_range_decoder, by = "age_range")
+
+}
 \keyword{datasets}
 
