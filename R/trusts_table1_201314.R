@@ -1,0 +1,13 @@
+#' Trusts Table 1 2013-14
+#' @description Selected variables of trusts, 2013-14.
+#' 
+#' @format A data frame of 4100 observations and 5 columns
+#' \describe{
+#' \item{Superheading}{Grouping of \code{Selected_items}.}
+#' \item{Selected_items}{The variable for the \code{fy_year}.}
+#' \item{fy_year}{The financial year to which the Count and Sum apply.}
+#' \item{Count}{The number of nonzero observations. \code{NA} means the observation was not recorded for that financial year.}
+#' \item{Sum}{The sum of the \code{Selected_item} for that \code{fy_year}.}
+#' }
+
+"trusts_table1_201314"

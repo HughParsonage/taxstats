@@ -34,7 +34,7 @@ trusts_table1_201314 <-
                        ifelse(unit == "no.", "Count", 
                               ifelse(unit == "$", "Sum", "unknown")))) %>% 
   gather(fy_year, value, -`Selected items`, -Superheading, -unit, factor_key = TRUE) %>%
-  data.table %>% 
+  as.data.table %>% 
   spread(unit, value) %>% 
   # fy_year are inconsisently coded. N.B. 1999-00 is coded as 1999-2000
   mutate(fy_year = yr2fy(as.numeric(gsub("^([12][0-9]{3})[^0-9](([0-9]{2})|(2000))$", "\\1", fy_year)) + 1)) %>%
@@ -46,6 +46,9 @@ trusts_table1_201314 <-
       .
     }
   } %>%
-  select(Superheading, Selected_items = `Selected items`, fy_year, Count, Sum)
+  select(Superheading, Selected_items = `Selected items`, fy_year, Count, Sum) %>%
+  # ASCII forcing:
+  as.data.table %>%
+  .[ , (1:3) := lapply(.SD, function(x) iconv(x, to = "ASCII")), .SDcols = 1:3] 
 
-devtools::use_data(trusts_table1_201314)
+devtools::use_data(trusts_table1_201314, overwrite = TRUE)

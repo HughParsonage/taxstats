@@ -1,13 +1,13 @@
 Package: taxstats
-Title: Supply ATO data for convenience
-Date: 2016-03-01
-Version: 0.0.2.1314
-Authors@R: person("Hugh", "Parsonage", email = "hugh.parsonage+taxstatspackage@grattan.edu.au", role = c("aut", "cre"))
+Title: Supply ATO data For Convenience
+Date: 2016-12-01
+Version: 0.0.4.1314
+Authors@R: person("Hugh", "Parsonage", email = "hugh.parsonage@gmail.com", role = c("aut", "cre"))
 Description: Supplies Australian Taxation Office (ATO) data.
 Depends:
     R (>= 3.2.3)
-Imports:
+Imports: dplyr (>= 0.5.0), 
     data.table
-License: CC3
+License: CC BY 4.0
 LazyData: true
 RoxygenNote: 5.0.1

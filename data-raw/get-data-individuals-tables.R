@@ -32,6 +32,9 @@ indiv_by_taxable_status_residency_taxable_income_range <-
   mutate(unit = if_else(grepl("[$]$", variable), "dollar", "number")) %>%
   mutate(variable = gsub("((no\\.)|[$])$", "", variable)) %>%
   setnames(old = names(.), new = gsub(" ", "_", names(.), fixed = TRUE)) %>%
-  mutate(Residency_status = gsub("Non.resident", "Non-resident", trimws(Residency_status)))
+  mutate(Residency_status = gsub("Non.resident", "Non-resident", trimws(Residency_status))) %>%
+  # ASCII forcing:
+  as.data.table %>%
+  .[ , (1:3) := lapply(.SD, function(x) iconv(x, to = "ASCII")), .SDcols = 1:3] 
 
 devtools::use_data(indiv_by_taxable_status_residency_taxable_income_range, overwrite = TRUE)
