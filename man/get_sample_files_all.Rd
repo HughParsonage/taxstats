@@ -4,13 +4,10 @@
 \alias{get_sample_files_all}
 \title{Get the object containing all sample files}
 \usage{
-get_sample_files_all(assign.env = parent.frame(2))
-}
-\arguments{
-\item{assign.env}{The environment in which to assign \code{sample_files_all}.}
+get_sample_files_all()
 }
 \value{
-A promise to \code{sample_files_all}. See \code{?sample_files}.
+All sample files bound by row \code{sample_files_all}. See \code{?sample_files}.
 }
 \description{
 Get the object containing all sample files
