@@ -2,17 +2,17 @@
 % Please edit documentation in R/sample_files_all.R
 \docType{data}
 \name{sample_files}
-\alias{sample_file_0304}
-\alias{sample_file_0405}
-\alias{sample_file_0506}
-\alias{sample_file_0607}
-\alias{sample_file_0708}
-\alias{sample_file_0809}
-\alias{sample_file_0910}
-\alias{sample_file_1011}
-\alias{sample_file_1112}
-\alias{sample_file_1213}
 \alias{sample_files}
+\alias{sample_file_1213}
+\alias{sample_file_1112}
+\alias{sample_file_1011}
+\alias{sample_file_0910}
+\alias{sample_file_0809}
+\alias{sample_file_0708}
+\alias{sample_file_0607}
+\alias{sample_file_0506}
+\alias{sample_file_0405}
+\alias{sample_file_0304}
 \title{The sample files 2003-04 to 2013-14}
 \format{A data frame.
 \describe{
@@ -134,4 +134,3 @@ year, these files contain a 2\% sample of records.
 This data table contains all these data sets in a single object, with additional columns \code{fy.year} and \code{WEIGHT}.
 }
 \keyword{datasets}
-

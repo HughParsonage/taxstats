@@ -24,4 +24,3 @@ A table of 5142 rows and 5 columns:
 }
 }
 \keyword{datasets}
-

@@ -19,4 +19,3 @@ individuals_table3_200910
 Selected variables of personal income tax, by postcode, and unit.
 }
 \keyword{datasets}
-

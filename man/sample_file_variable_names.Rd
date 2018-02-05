@@ -20,4 +20,3 @@ sample_file_variable_names
 Full descriptions of hte variables in the sample files.
 }
 \keyword{datasets}
-

@@ -19,4 +19,3 @@ A table of 2477 rows and 2 columns:
 }
 }
 \keyword{datasets}
-

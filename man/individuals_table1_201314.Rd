@@ -22,4 +22,3 @@ individuals_table1_201314
 This is a molten form of the data source with some oddities (such as encoding) removed.
 }
 \keyword{datasets}
-

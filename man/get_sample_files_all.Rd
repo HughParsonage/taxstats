@@ -12,4 +12,3 @@ All sample files bound by row \code{sample_files_all}. See \code{?sample_files}.
 \description{
 Get the object containing all sample files
 }
-

@@ -22,4 +22,3 @@ funds_table2_smsf_201314
 This is a long form of the data relating to self-managed super funds on data.gov.au.
 }
 \keyword{datasets}
-

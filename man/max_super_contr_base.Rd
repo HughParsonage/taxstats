@@ -16,4 +16,3 @@ max_super_contr_base
 The amount of salary income above which no super guarantee payment is compulsory.
 }
 \keyword{datasets}
-

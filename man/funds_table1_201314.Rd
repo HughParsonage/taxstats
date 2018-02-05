@@ -22,4 +22,3 @@ funds_table1_201314
 This is a long form of the data relating to super funds on data.gov.au.
 }
 \keyword{datasets}
-

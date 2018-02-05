@@ -19,4 +19,3 @@ trusts_table1_201314
 Selected variables of trusts, 2013-14.
 }
 \keyword{datasets}
-

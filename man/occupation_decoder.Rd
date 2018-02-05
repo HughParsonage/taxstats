@@ -16,4 +16,3 @@ occupation_decoder
 Decodes the occupation codes in the sample file
 }
 \keyword{datasets}
-
