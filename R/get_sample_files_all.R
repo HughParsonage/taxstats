@@ -1,14 +1,12 @@
 #' Get the object containing all sample files
 #' 
 #' @return All sample files bound by row \code{sample_files_all}. See \code{?sample_files}.
-#' @import data.table
 #' @export
 
 get_sample_files_all <- function(){
-  if (!"package:data.table" %in% search()){
+  if (!requireNamespace("data.table", quietly = TRUE)){
     stop("Attach the data.table package.")
   } else {
-    adt <- function(...) data.table::as.data.table(...)
     fy.year <- NULL
     WEIGHT <- NULL
     
@@ -24,7 +22,7 @@ get_sample_files_all <- function(){
                                                    "2012-13"  = sample_file_1213,  # <-get_sample_file(2013))
                                                    "2013-14"  = sample_file_1314
     ), use.names = TRUE, fill = TRUE, idcol = "fy.year")
-    sample_files_all[, WEIGHT := dplyr::if_else(fy.year > "2010-11", 50L, 100L)]
+    sample_files_all[, WEIGHT := hutils::if_else(fy.year > "2010-11", 50L, 100L)]
     sample_files_all
   }
 }
