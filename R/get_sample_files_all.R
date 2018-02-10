@@ -26,11 +26,7 @@ get_sample_files_all <- function(){
                                               fill = TRUE,
                                               idcol = "fy.year")
     wt_50 <- .subset2(sample_files_all, "fy.year") > "2010-11"
-    if ("package:data.table" %in% search()) {
-      sample_files_all[, `:=`(WEIGHT, hutils::if_else(fy.year > "2010-11", 50L, 100L))]
-    } else {
-      sample_files_all$WEIGHT <- hutils::if_else(wt_50, 50L, 100L)
-    }
+    sample_files_all$WEIGHT <- hutils::if_else(wt_50, 50L, 100L)
     
     sample_files_all
   }
