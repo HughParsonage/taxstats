@@ -1,8 +1,10 @@
 library(httr)
 library(readxl)
+library(readr)
 library(dplyr)
 library(magrittr)
 library(zoo)  # na.locf
+library(data.table)
 
 if (!file.exists("./data-raw/Samplefilesall.zip")){
   dir.create("data-raw", showWarnings = FALSE)
@@ -55,7 +57,10 @@ age_range_decoder <-
   arrange(desc(age_range)) %>%
   mutate(age_range_description = factor(age_range_description, 
                                         levels = unique(.$age_range_description), 
-                                        ordered = TRUE))
+                                        ordered = TRUE)) %>%
+  as.data.table %>%
+  setkey(age_range) %>%
+  .[]
 
 devtools::use_data(age_range_decoder, overwrite = TRUE)
 
@@ -70,9 +75,12 @@ occupation_decoder <-
                   6	Sales workers
                   7	Machinery operators and drivers
                   8	Labourers
-                  9	Consultants, apprentices and type not specified or not listed")
+                  9	Consultants, apprentices and type not specified or not listed") %>%
+  as.data.table %>%
+  setkey(Occ_code) %>%
+  .[]
 
-devtools::use_data(occupation_decoder)
+devtools::use_data(occupation_decoder, overwrite = TRUE)
 
 region_decoder <- 
   readr::read_tsv("Region	Region_description
@@ -110,6 +118,9 @@ region_decoder <-
                   31	WA regional - low urbanisation
                   32	WA rural
                   34	NSW other
-                  35	WA other")
+                  35	WA other") %>%
+  as.data.table %>%
+  setkey(Region) %>%
+  .[]
 
-devtools::use_data(region_decoder)
+devtools::use_data(region_decoder, overwrite = TRUE)
