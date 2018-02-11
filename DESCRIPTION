@@ -4,7 +4,6 @@ Version: 0.0.5.1415
 Authors@R: person("Hugh", "Parsonage", email = "hugh.parsonage@gmail.com", role = c("aut", "cre"))
 Description: Supplies Australian Taxation Office (ATO) data.
 Depends: R (>= 3.2.0)
-Imports: hutils
 Suggests: data.table
 License: CC BY 4.0
 LazyData: true
