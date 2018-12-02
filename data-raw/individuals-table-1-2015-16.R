@@ -6,16 +6,17 @@ library(data.table)
 library(zoo)
 library(grattan)
 
-if (!file.exists("./data-raw/2014-15/Individuals_table1_2014-15.xlsx")) {
+if (!file.exists("data-raw/2015-16/Individuals_table1_2015-16.xlsx")) {
   GET(url = "https://data.gov.au/dataset/d170213c-4391-4d10-ac24-b0c11768da3f/resource/c4ac2c65-7e0c-49bb-adc2-356356a03ab1/download/taxstats2016individual01byyear.xlsx", 
-      write_disk("./data-raw/Individuals_table1_2014-15.xlsx"))
+      write_disk("data-raw/2015-16/Individuals_table1_2015-16.xlsx"))
 }
 
 individuals_table1_201516 <- 
-  read_excel("data-raw/2014-15/Individuals_table1_2014-15.xlsx", sheet = 2, skip = 2, na = "na") %>% 
+  read_excel("data-raw/2015-16/Individuals_table1_2015-16.xlsx", sheet = 2, skip = 2, na = "na") %>% 
   # 2 is the unit: `no.` or `$`
   as.data.table %>%
   setnames(2L, "unit") %>%
+  setnames(1L, "Selected items") %>%
   # .absent signifies where unit is blank which appears to correspond to
   # selected items that are no longer 'on the form'. See xlsx file, sheet 1.
   # We use n() to ensure that every column at spread() is unique

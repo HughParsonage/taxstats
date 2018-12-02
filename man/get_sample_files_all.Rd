@@ -8,6 +8,9 @@ get_sample_files_all()
 }
 \value{
 All sample files bound by row \code{sample_files_all}. See \code{?sample_files}.
+
+\code{get_sample_files_all2()} is different in two ways: (1) uses a \code{fy_year} name,
+instead of \code{fy.year}, and (2) uses the same names as in \code{sample_file_1314}.
 }
 \description{
 Get the object containing all sample files
