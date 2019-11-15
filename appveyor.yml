@@ -37,7 +37,7 @@ build_script:
   - travis-tool.sh install_deps
 
 test_script:
-  - unset WARNINGS_ARE_ERRORS 
+  - WARNINGS_ARE_ERRORS=
   - travis-tool.sh run_tests
 
 on_failure:
