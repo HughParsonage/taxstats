@@ -6,10 +6,10 @@
 #' instead of \code{fy.year}, and (2) uses the same names as in \code{sample_file_1314}.
 #' 
 #' @import data.table
-#' @export get_sample_files_all get_sample_files_all2
+#' @export get_sample_files_all
 
 get_sample_files_all <- function(){
-  if (!requireNamespace("data.table", quietly = TRUE)){
+  if (!requireNamespace("data.table", quietly = TRUE)) {
     stop("Attach the data.table package.")
   } else {
     fy.year <- NULL
@@ -38,6 +38,8 @@ get_sample_files_all <- function(){
   }
 }
 
+#' @rdname get_sample_files_all
+#' @export
 get_sample_files_all2 <- function() {
   standardize <- function(yr) {
     suffix <- paste0(substr(yr - 1L, 3, 4),

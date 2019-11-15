@@ -2,9 +2,12 @@
 % Please edit documentation in R/get_sample_files_all.R
 \name{get_sample_files_all}
 \alias{get_sample_files_all}
+\alias{get_sample_files_all2}
 \title{Get the object containing all sample files}
 \usage{
 get_sample_files_all()
+
+get_sample_files_all2()
 }
 \value{
 All sample files bound by row \code{sample_files_all}. See \code{?sample_files}.

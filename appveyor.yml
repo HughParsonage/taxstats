@@ -37,11 +37,15 @@ build_script:
   - travis-tool.sh install_deps
 
 test_script:
+  - unset WARNINGS_ARE_ERRORS 
   - travis-tool.sh run_tests
 
 on_failure:
   - 7z a failure.zip *.Rcheck\*
   - appveyor PushArtifact failure.zip
+
+on_success:
+  - R CMD build --no-manual
 
 artifacts:
   - path: '*.Rcheck\**\*.log'
