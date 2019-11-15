@@ -46,6 +46,11 @@ get_sample_files_all2 <- function() {
     DT <- getExportedValue("taxstats", object_name)
     out <- as.data.table(DT)
     out[, "fy_year" := grattan::yr2fy(yr)]
+    if (yr > 2011L) {
+      out[, WEIGHT := 50L]
+    } else {
+      out[, WEIGHT := 100L]
+    }
     do_setnames <- function(dt, old, new) {
       if (old %in% names(dt)) {
         setnames(dt, old, new)
